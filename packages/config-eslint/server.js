@@ -34,6 +34,9 @@ module.exports = {
       env: {
         jest: true,
       },
+      rules: {
+        'eslint-comments/require-description': 'off',
+      },
     },
   ],
   ignorePatterns: ['node_modules/', 'dist/'],
@@ -41,5 +44,7 @@ module.exports = {
   rules: {
     'import/no-default-export': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-misused-promises': 'off',
+    'no-console': 'off',
   },
 };

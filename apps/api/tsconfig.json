@@ -3,7 +3,14 @@
   "compilerOptions": {
     "lib": ["ES2015"],
     "module": "ES2015",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "declaration": false,
+    "declarationMap": false,
+    "baseUrl": ".",
+    "paths": {
+      "@airtable": ["src/lib/airtable/index.ts"],
+      "@airtable/*": ["src/lib/airtable/*"]
+    }
   },
   "exclude": ["node_modules"],
   "include": ["."]
