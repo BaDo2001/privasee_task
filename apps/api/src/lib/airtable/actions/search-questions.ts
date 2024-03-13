@@ -4,10 +4,11 @@ import type { Question, QuestionSearch } from '@airtable/types';
 import { QuestionSearchResult } from '@airtable/types';
 
 const createFilterFormula = (query: QuestionSearch) => {
-  const filters = [
-    query['Assigned To'] ? `FIND(LOWER('${query['Assigned To']}'), LOWER({Assigned To})) > 0` : 'TRUE()',
-    query.Properties ? `FIND(LOWER('${query.Properties}'), LOWER({Properties})) > 0` : 'TRUE()',
-  ];
+  const proprtiesFilter = query.Properties
+    ? `OR(${query.Properties.map((property) => `FIND(LOWER('${property}'), LOWER({Properties})) > 0`).join(',')})`
+    : 'TRUE()';
+
+  const filters = [query['Assigned To'] ? `FIND(LOWER('${query['Assigned To']}'), LOWER({Assigned To})) > 0` : 'TRUE()', proprtiesFilter];
 
   return `AND(${filters.join(',')})`;
 };

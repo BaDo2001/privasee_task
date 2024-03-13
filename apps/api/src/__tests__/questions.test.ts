@@ -20,9 +20,9 @@ describe('Questions', () => {
   beforeEach(async () => {
     const records = await table.select({ fields: [] }).all();
 
-    if (records.length > 0) {
-      await table.destroy(records.map((record) => record.id));
-    }
+    // if (records.length > 0) {
+    //   await table.destroy(records.map((record) => record.id));
+    // }
   });
 
   test('createQuestion should save new row to airtable', async () => {
@@ -101,7 +101,7 @@ describe('Questions', () => {
       Properties: 'section:Policies,vendor:IBM,region:Europe',
     });
 
-    const questions = await searchQuestions({ Properties: 'region:Europe' });
+    const questions = await searchQuestions({ Properties: ['region:Europe'] });
 
     expect(questions).toEqual([question2]);
   });

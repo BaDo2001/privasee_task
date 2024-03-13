@@ -1,9 +1,33 @@
 import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
-import { createQuestion, bulkUpdateQuestions, updateQuestion } from '@airtable';
-import { QuestionUpdate, QuestionAssigneeUpdate, QuestionInput } from '@airtable/types';
+import { createQuestion, bulkUpdateQuestions, updateQuestion, searchQuestions } from '@airtable';
+import { QuestionUpdate, QuestionAssigneeUpdate, QuestionInput, QuestionSearch } from '@airtable/types';
 
 const questionRouter = Router();
+
+questionRouter.get(
+  '/',
+  asyncHandler(async (req, res) => {
+    try {
+      const parsedData = await QuestionSearch.safeParseAsync(req.body);
+
+      if (!parsedData.success) {
+        req.log.error(parsedData.error);
+
+        res.status(400).json(parsedData.error);
+        return;
+      }
+
+      const data = await searchQuestions(parsedData.data);
+
+      res.status(200).json(data);
+    } catch (error) {
+      req.log.error(error);
+
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }),
+);
 
 questionRouter.post(
   '/',
