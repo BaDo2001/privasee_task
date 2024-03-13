@@ -2,7 +2,6 @@ import { json, urlencoded } from 'body-parser';
 import express, { type Express } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node';
 import pino from 'pino-http';
 import { questionRouter } from './routers/question-router';
 
@@ -15,7 +14,6 @@ export const createServer = (): Express => {
     .use(json())
     .use(cors())
     .use(pino())
-    .use(ClerkExpressRequireAuth())
     .use('/api/questions', questionRouter);
 
   return app;
