@@ -5,7 +5,32 @@
 ### Prerequisites
 
 - Airtable setup
+  - Create a base
+  - Create a table
+    - Make sure the table has the following fields:
+      - \_recordId (Autonumber)
+      - Company Name
+      - Question
+      - Answer
+      - \_companyId
+      - Created At
+      - Updated At
+      - Updated By
+      - Created By
+      - Assigned To
+      - Properties
+      - Question Description
+  - Create a Personal Access Token
 - Clerk setup
+
+  - Create a new application
+  - Customize session token (under the Sessions menu) with adding the following:
+
+```json
+{
+  "email": "{{user.primary_email_address}}"
+}
+```
 
 ### Environment variables
 
