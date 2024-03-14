@@ -9,7 +9,7 @@ questionRouter.get(
   '/',
   asyncHandler(async (req, res) => {
     try {
-      const parsedData = await QuestionSearch.safeParseAsync(req.body);
+      const parsedData = await QuestionSearch.safeParseAsync(req.query);
 
       if (!parsedData.success) {
         req.log.error(parsedData.error);

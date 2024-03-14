@@ -5,7 +5,9 @@ import { QuestionSearchResult } from '@airtable/types';
 
 const createFilterFormula = (query: QuestionSearch) => {
   const proprtiesFilter = query.Properties
-    ? `OR(${query.Properties.map((property) => `FIND(LOWER('${property}'), LOWER({Properties})) > 0`).join(',')})`
+    ? `OR(${query.Properties.split(',')
+        .map((property) => `FIND(LOWER('${property}'), LOWER({Properties})) > 0`)
+        .join(',')})`
     : 'TRUE()';
 
   const filters = [query['Assigned To'] ? `FIND(LOWER('${query['Assigned To']}'), LOWER({Assigned To})) > 0` : 'TRUE()', proprtiesFilter];

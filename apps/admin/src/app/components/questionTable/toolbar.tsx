@@ -8,6 +8,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import { useQuestionContext } from '../../contexts/QuestionContext';
 
 interface Props {
   numSelected: number;
@@ -15,12 +16,8 @@ interface Props {
   propertiesOptions: string[];
 }
 
-const UNASSIGNED = 'Unassigned';
-
 const Toolbar: FC<Props> = ({ numSelected, assigneeOptions, propertiesOptions }) => {
-  const [search, setSearch] = useState<string>('');
-  const [assignee, setAssignee] = useState<string>('');
-  const [properties, setProperties] = useState<string[]>([]);
+  const { search, setSearch, assignee, setAssignee, properties, setProperties } = useQuestionContext();
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -50,7 +47,6 @@ const Toolbar: FC<Props> = ({ numSelected, assigneeOptions, propertiesOptions })
         <InputLabel id="assignee-label">Assignee</InputLabel>
         <Select labelId="assignee-label" value={assignee} label="Assignee" onChange={handleAssigneeChange}>
           <MenuItem value="">None</MenuItem>
-          <MenuItem value={UNASSIGNED}>Unassigned</MenuItem>
 
           {assigneeOptions.map((option) => (
             <MenuItem key={option} value={option}>

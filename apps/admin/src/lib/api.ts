@@ -11,7 +11,7 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
-export const getQuestions = async (search: QuestionSearch) => axios.get<Question[]>('/api/questions', { data: search });
+export const getQuestions = async (search: QuestionSearch) => axios.get<Question[]>('/api/questions', { params: search });
 
 export const createQuestion = async (question: QuestionInput) => axios.post<unknown>('/api/questions', question);
 

@@ -42,7 +42,7 @@ export type QuestionAssigneeUpdate = z.infer<typeof QuestionAssigneeUpdate>;
 
 export const QuestionSearch = z.object({
   'Assigned To': z.string().email().optional(),
-  'Properties': z.array(z.string()).optional(),
+  'Properties': z.string().optional(),
   'query': z.string().optional(),
 });
 

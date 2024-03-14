@@ -52,10 +52,9 @@ const QuestionTable: FC<Props> = ({ questions }) => {
 
   const isSelected = (id: string) => selected.indexOf(id) !== -1;
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - questions.length) : 0;
 
-  const visibleRows = useMemo(() => questions.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage), [, page, rowsPerPage]);
+  const visibleRows = useMemo(() => questions.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage), [questions, page, rowsPerPage]);
 
   const assigneeOptions = useMemo(() => {
     const assignees = questions.flatMap((question) => question['Assigned To'] || []);
@@ -66,8 +65,6 @@ const QuestionTable: FC<Props> = ({ questions }) => {
     const properties = questions.flatMap((question) => (question.Properties ? question.Properties.split(',') : [])).flat();
     return Array.from(new Set(properties));
   }, [questions]);
-
-  console.log('questions', questions, propertiesOptions);
 
   return (
     <Box sx={{ width: '100%' }}>
