@@ -15,7 +15,7 @@ interface Props {
   propertiesOptions: string[];
 }
 
-const unassigned = 'Unassigned';
+const UNASSIGNED = 'Unassigned';
 
 const Toolbar: FC<Props> = ({ numSelected, assigneeOptions, propertiesOptions }) => {
   const [search, setSearch] = useState<string>('');
@@ -50,7 +50,7 @@ const Toolbar: FC<Props> = ({ numSelected, assigneeOptions, propertiesOptions })
         <InputLabel id="assignee-label">Assignee</InputLabel>
         <Select labelId="assignee-label" value={assignee} label="Assignee" onChange={handleAssigneeChange}>
           <MenuItem value="">None</MenuItem>
-          <MenuItem value={unassigned}>Unassigned</MenuItem>
+          <MenuItem value={UNASSIGNED}>Unassigned</MenuItem>
 
           {assigneeOptions.map((option) => (
             <MenuItem key={option} value={option}>

@@ -4,14 +4,14 @@ export const QuestionInput = z.object({
   'Company Name': z.string(),
   '_companyId': z.number(),
   'Question': z.string(),
-  'Answer': z.string(),
+  'Answer': z.string().default(''),
   'Created At': z.string().datetime(),
   'Created By': z.string().email(),
   'Updated At': z.string().datetime(),
   'Updated By': z.string().email(),
   'Assigned To': z.string().email().optional(),
-  'Properties': z.string(),
-  'Question Description': z.string(),
+  'Properties': z.string().default(''),
+  'Question Description': z.string().default(''),
 });
 
 export type QuestionInput = z.infer<typeof QuestionInput>;

@@ -11,7 +11,7 @@ const Dashboard = () => {
   const { isLoading, data, error } = useQuery({ queryKey: ['questions'], queryFn: () => getQuestions({}) });
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Button variant="contained" color="primary" sx={{ alignSelf: 'flex-end' }} component={Link} to="/create">
         Create new question
       </Button>
