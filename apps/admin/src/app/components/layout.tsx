@@ -19,7 +19,7 @@ const Layout = () => (
       <UserButton />
     </AppBar>
 
-    <Box sx={{ mt: 10, p: 4 }}>
+    <Box sx={{ mt: 10, p: 4, display: 'flex', flexDirection: 'column' }}>
       <QuestionProvider>
         <Outlet />
       </QuestionProvider>

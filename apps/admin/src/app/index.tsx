@@ -9,6 +9,11 @@ import CreateQuestion from './pages/createQuestion';
 import Dashboard from './pages/dashboard';
 import EditQuestion from './pages/editQuestion';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 const router = createBrowserRouter([
   {
     element: <Layout />,

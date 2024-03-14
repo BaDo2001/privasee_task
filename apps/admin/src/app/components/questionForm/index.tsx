@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +19,7 @@ interface Props {
   action: (data: QuestionFormType) => Promise<void>;
 }
 
-const QuestionForm: FC<Props> = ({ type, defaultValues, action }) => {
+const QuestionForm: FC<PropsWithChildren<Props>> = ({ type, defaultValues, action, children }) => {
   const {
     register,
     handleSubmit,
@@ -51,9 +51,11 @@ const QuestionForm: FC<Props> = ({ type, defaultValues, action }) => {
   return (
     <form onSubmit={() => void onSubmit()}>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, px: 20 }}>
-        <Typography sx={{ fontSize: 32, mb: 2 }} variant="h1">
+        <Typography sx={{ fontSize: 32 }} variant="h1">
           {type === 'create' ? 'Create a question' : 'Edit question'}
         </Typography>
+
+        {children}
 
         {error ? <Typography sx={{ color: '#ef4444' }}>{error.message}</Typography> : null}
 
