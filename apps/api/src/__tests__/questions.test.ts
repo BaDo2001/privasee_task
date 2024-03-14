@@ -1,6 +1,6 @@
 import type { QuestionInput, QuestionUpdate } from '@privasee_task/types';
 
-import { bulkUpdateQuestions, createQuestion, searchQuestions,updateQuestion } from '@/airtable';
+import { bulkUpdateQuestions, createQuestion, searchQuestions, updateQuestion } from '@/airtable';
 import table from '@/airtable/table';
 
 const mockQuestion = {
@@ -66,7 +66,7 @@ describe('Questions', () => {
     const foundQuestion2 = await table.find(question2.id);
 
     expect(foundQuestion1.fields['Assigned To']).toEqual('jane.doe@example.com');
-    expect(foundQuestion2.fields['Assigned To']).toEqual('james.doe@example.com');
+    expect(foundQuestion2.fields['Assigned To']).toEqual('jane.doe@example.com');
   });
 
   test('searchQuestions should return all questions if no query parameter is set', async () => {

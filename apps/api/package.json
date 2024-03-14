@@ -8,7 +8,7 @@
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/",
-    "test": "dotenv -- vitest"
+    "test": "dotenv -e .env.test -- vitest"
   },
   "dependencies": {
     "@clerk/clerk-sdk-node": "^4.13.11",
