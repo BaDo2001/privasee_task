@@ -112,8 +112,6 @@ questionRouter.patch(
   '/assignee',
   asyncHandler(async (req, res) => {
     try {
-      console.log('req.body', req.body);
-
       const parsedData = await QuestionAssigneeUpdate.safeParseAsync(req.body);
 
       if (!parsedData.success) {

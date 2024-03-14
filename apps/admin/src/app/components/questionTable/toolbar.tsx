@@ -1,5 +1,5 @@
 import type { ChangeEvent, FC } from 'react';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
@@ -13,20 +13,21 @@ import { default as MuiToolbar } from '@mui/material/Toolbar';
 import AssigneeModal from '@/components/assigneeModal';
 import { useQuestionContext } from '@/contexts/QuestionContext';
 
-interface Props {
-  assigneeOptions: (string | undefined)[];
-  propertiesOptions: string[];
-}
+export const UNASSIGNED = 'Unassigned';
 
-const Toolbar: FC<Props> = ({ assigneeOptions, propertiesOptions }) => {
-  const { search, setSearch, assignee, setAssignee, properties, setProperties } = useQuestionContext();
+const Toolbar: FC = () => {
+  const { search, setSearch, assignee, setAssignee, properties, setProperties, questions } = useQuestionContext();
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
 
   const handleAssigneeChange = (event: SelectChangeEvent) => {
-    setAssignee(event.target.value);
+    if (event.target.value === UNASSIGNED) {
+      setAssignee(null);
+    } else {
+      setAssignee(event.target.value);
+    }
   };
 
   const handlePropertiesChange = (event: SelectChangeEvent<string[]>) => {
@@ -34,6 +35,16 @@ const Toolbar: FC<Props> = ({ assigneeOptions, propertiesOptions }) => {
   };
 
   const isPropertySelected = (property: string) => properties.includes(property);
+
+  const questionsData = useMemo(() => questions.data?.data || [], [questions.data]);
+
+  const assigneeOptions = useMemo(() => {
+    return Array.from(new Set(questionsData.flatMap((question) => question['Assigned To'] || [])));
+  }, [questionsData]);
+
+  const propertiesOptions = useMemo(() => {
+    return Array.from(new Set(questionsData.flatMap((question) => (question.Properties ? question.Properties.split(',') : [])).flat()));
+  }, [questionsData]);
 
   return (
     <MuiToolbar
@@ -47,8 +58,9 @@ const Toolbar: FC<Props> = ({ assigneeOptions, propertiesOptions }) => {
 
       <FormControl sx={{ flex: 1 }}>
         <InputLabel id="assignee-label">Assignee</InputLabel>
-        <Select label="Assignee" labelId="assignee-label" onChange={handleAssigneeChange} value={assignee}>
+        <Select label="Assignee" labelId="assignee-label" onChange={handleAssigneeChange} value={assignee === null ? UNASSIGNED : assignee}>
           <MenuItem value="">None</MenuItem>
+          <MenuItem value={UNASSIGNED}>{UNASSIGNED}</MenuItem>
 
           {assigneeOptions.map((option) => (
             <MenuItem key={option} value={option}>

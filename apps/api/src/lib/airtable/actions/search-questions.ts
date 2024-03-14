@@ -4,14 +4,30 @@ import Fuse from 'fuse.js';
 
 import table from '@/airtable/table';
 
-const createFilterFormula = (query: QuestionSearch) => {
-  const proprtiesFilter = query.Properties
-    ? `OR(${query.Properties.split(',')
-        .map((property) => `FIND(LOWER('${property}'), LOWER({Properties})) > 0`)
-        .join(',')})`
-    : 'TRUE()';
+const createPropertyFilter = (query: QuestionSearch) => {
+  if (!query.Properties) {
+    return 'TRUE()';
+  }
 
-  const filters = [query['Assigned To'] ? `FIND(LOWER('${query['Assigned To']}'), LOWER({Assigned To})) > 0` : 'TRUE()', proprtiesFilter];
+  return `OR(${query.Properties.split(',')
+    .map((property) => `FIND(LOWER('${property}'), LOWER({Properties})) > 0`)
+    .join(',')})`;
+};
+
+const createAssigneeFilter = (query: QuestionSearch) => {
+  if (!query['Assigned To']) {
+    return 'TRUE()';
+  }
+
+  if (query['Assigned To'].type === 'unassigned') {
+    return 'LEN({Assigned To}) = 0';
+  }
+
+  return `FIND(LOWER('${query['Assigned To'].value}'), LOWER({Assigned To})) > 0`;
+};
+
+const createFilterFormula = (query: QuestionSearch) => {
+  const filters = [createAssigneeFilter(query), createPropertyFilter(query)];
 
   return `AND(${filters.join(',')})`;
 };

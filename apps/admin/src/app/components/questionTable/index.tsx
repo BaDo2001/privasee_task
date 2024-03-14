@@ -1,5 +1,5 @@
 import type { ChangeEvent, FC } from 'react';
-import React, { useMemo,useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -45,28 +45,22 @@ const QuestionTable: FC = () => {
     [questionsData, page, rowsPerPage],
   );
 
-  const assigneeOptions = useMemo(() => {
-    const assignees = questionsData.flatMap((question) => question['Assigned To'] || []);
-    return Array.from(new Set(assignees));
-  }, [questionsData]);
-
-  const propertiesOptions = useMemo(() => {
-    const properties = questionsData.flatMap((question) => (question.Properties ? question.Properties.split(',') : [])).flat();
-    return Array.from(new Set(properties));
-  }, [questionsData]);
-
-  if (!questionsData.length) {
-    return null;
-  }
-
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <Toolbar assigneeOptions={assigneeOptions} propertiesOptions={propertiesOptions} />
+        <Toolbar />
         <TableContainer>
           <Table aria-labelledby="tableTitle" sx={{ minWidth: 750 }}>
             <TableHead />
             <TableBody>
+              {questionsData.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={6} sx={{ textAlign: 'center' }}>
+                    No questions found
+                  </TableCell>
+                </TableRow>
+              )}
+
               {visibleRows.map((row, index) => {
                 const isItemSelected = isSelected(row.id);
                 const labelId = `enhanced-table-checkbox-${index}`;

@@ -10,7 +10,7 @@ import { useQuestionContext } from '@/contexts/QuestionContext';
 
 const Dashboard = () => {
   const {
-    questions: { isLoading, data, error },
+    questions: { isLoading, data },
   } = useQuestionContext();
 
   return (
@@ -19,11 +19,7 @@ const Dashboard = () => {
         Create new question
       </Button>
 
-      <Box sx={{ alignSelf: 'center' }}>
-        {isLoading ? <CircularProgress /> : null}
-        {error ? <div>Error: {error.stack}</div> : null}
-        {!isLoading && !data && <div>No data</div>}
-      </Box>
+      <Box sx={{ alignSelf: 'center' }}>{isLoading ? <CircularProgress /> : null}</Box>
 
       {data ? <QuestionTable /> : null}
     </Box>

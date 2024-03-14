@@ -48,7 +48,9 @@ export const QuestionAssigneeUpdate = z.object({
 export type QuestionAssigneeUpdate = z.infer<typeof QuestionAssigneeUpdate>;
 
 export const QuestionSearch = z.object({
-  'Assigned To': z.string().email().optional(),
+  'Assigned To': z
+    .union([z.object({ type: z.literal('assigned'), value: z.string().email() }), z.object({ type: z.literal('unassigned') })])
+    .optional(),
   'Properties': z.string().optional(),
   'query': z.string().optional(),
 });

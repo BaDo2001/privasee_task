@@ -42,15 +42,22 @@ const App = () => {
       return;
     }
 
-    getToken({})
-      .then((token) => {
-        if (token) {
-          localStorage.setItem('token', token);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const updateToken = async () => {
+      const token = await getToken({});
+      if (token) {
+        localStorage.setItem('token', token);
+      }
+    };
+
+    const interval = setInterval(() => {
+      updateToken();
+    }, 1000 * 60);
+
+    updateToken();
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [getToken, isSignedIn]);
 
   return (

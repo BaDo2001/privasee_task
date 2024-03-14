@@ -51,7 +51,7 @@ const QuestionForm: FC<PropsWithChildren<Props>> = ({ type, defaultValues, actio
   });
 
   return (
-    <form onSubmit={() => void onSubmit()}>
+    <form onSubmit={onSubmit}>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, px: 20 }}>
         <Typography sx={{ fontSize: 32 }} variant="h1">
           {type === 'create' ? 'Create a question' : 'Edit question'}

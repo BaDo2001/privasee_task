@@ -66,6 +66,10 @@ I used the built in caching of React Query and invalidated the cache on every mu
 
 I used a single context for the whole app, which means that there are unnecessary re-renders in some components, which can hit performance, but not in this case, because the app is so small.
 
+### Pagination
+
+I didn't implement server side pagination, which means that the app won't work for more than 100 records. However, I did implement client side pagination, as well as server side filtering, which is a good base.
+
 ### Accessibility
 
 I haven't paid any particular attention to accessibility, given the time constraints, but it's a very important aspect of a production app.

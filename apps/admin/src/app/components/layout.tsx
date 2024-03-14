@@ -16,7 +16,7 @@ const Layout = () => (
         <HomeIcon fontSize="large" />
       </IconButton>
 
-      <UserButton />
+      <UserButton afterSignOutUrl="/" />
     </AppBar>
 
     <Box sx={{ mt: 10, p: 4, display: 'flex', flexDirection: 'column' }}>
