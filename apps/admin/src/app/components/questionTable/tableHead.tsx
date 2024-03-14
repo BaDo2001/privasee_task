@@ -3,11 +3,11 @@ import { default as MuiTableHead } from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import React, { FC } from 'react';
 
-interface HeadCell {
+type HeadCell = {
   id: string;
   label: string;
   align?: TableCellProps['align'];
-}
+};
 
 const headCells: readonly HeadCell[] = [
   {

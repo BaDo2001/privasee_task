@@ -1,5 +1,4 @@
-import { ChangeEvent, useState, MouseEvent, useMemo, FC } from 'react';
-import { Question } from '../../../lib/types';
+import { ChangeEvent, useState, useMemo, FC } from 'react';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -15,31 +14,15 @@ import Checkbox from '@mui/material/Checkbox';
 import TablePagination from '@mui/material/TablePagination';
 import IconButton from '@mui/material/IconButton';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useQuestionContext } from '../../contexts/QuestionContext';
 
-type Props = {
-  questions: Question[];
-};
+const QuestionTable: FC = () => {
+  const { selected, questions, updateSelected } = useQuestionContext();
 
-const QuestionTable: FC<Props> = ({ questions }) => {
-  const [selected, setSelected] = useState<readonly string[]>([]);
+  const questionsData = questions?.data?.data || [];
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const handleClick = (event: MouseEvent<unknown>, id: string) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly string[] = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-    setSelected(newSelected);
-  };
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -52,24 +35,31 @@ const QuestionTable: FC<Props> = ({ questions }) => {
 
   const isSelected = (id: string) => selected.indexOf(id) !== -1;
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - questions.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - questionsData.length) : 0;
 
-  const visibleRows = useMemo(() => questions.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage), [questions, page, rowsPerPage]);
+  const visibleRows = useMemo(
+    () => questionsData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [questionsData, page, rowsPerPage],
+  );
 
   const assigneeOptions = useMemo(() => {
-    const assignees = questions.flatMap((question) => question['Assigned To'] || []);
+    const assignees = questionsData.flatMap((question) => question['Assigned To'] || []);
     return Array.from(new Set(assignees));
-  }, [questions]);
+  }, [questionsData]);
 
   const propertiesOptions = useMemo(() => {
-    const properties = questions.flatMap((question) => (question.Properties ? question.Properties.split(',') : [])).flat();
+    const properties = questionsData.flatMap((question) => (question.Properties ? question.Properties.split(',') : [])).flat();
     return Array.from(new Set(properties));
-  }, [questions]);
+  }, [questionsData]);
+
+  if (!questionsData) {
+    return null;
+  }
 
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <Toolbar numSelected={selected.length} assigneeOptions={assigneeOptions} propertiesOptions={propertiesOptions} />
+        <Toolbar assigneeOptions={assigneeOptions} propertiesOptions={propertiesOptions} />
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <TableHead />
@@ -81,7 +71,7 @@ const QuestionTable: FC<Props> = ({ questions }) => {
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id)}
+                    onClick={(event) => updateSelected(row.id)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
@@ -124,7 +114,7 @@ const QuestionTable: FC<Props> = ({ questions }) => {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={questions.length}
+          count={questionsData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

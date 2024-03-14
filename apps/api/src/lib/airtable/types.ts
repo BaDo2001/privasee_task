@@ -34,7 +34,11 @@ export type QuestionUpdate = z.infer<typeof QuestionUpdate>;
 export const QuestionAssigneeUpdate = z.array(
   z.object({
     'id': z.string(),
-    'Assigned To': z.string().email().optional(),
+    'Assigned To': z
+      .string()
+      .email()
+      .optional()
+      .transform((v) => v || ''),
   }),
 );
 

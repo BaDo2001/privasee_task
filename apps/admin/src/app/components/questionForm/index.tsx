@@ -67,7 +67,7 @@ const QuestionForm: FC<Props> = ({ type, defaultValues, action }) => {
         </Box>
 
         <TextField label="Answer" variant="outlined" {...register('Answer')} />
-        <TextField label="Assigned to" variant="outlined" {...register('Assigned To')} />
+        <TextField label="Assigned to" variant="outlined" {...register('Assigned To')} type="email" />
         <TextField label="Description" variant="outlined" {...register('Question Description')} disabled={type === 'update'} />
         <TextField label="Properties" variant="outlined" {...register('Properties')} />
 

@@ -58,7 +58,7 @@ questionRouter.post(
 );
 
 questionRouter.patch(
-  '/:id',
+  '/update/:id',
   asyncHandler(async (req, res) => {
     try {
       const { id } = req.params;
@@ -91,6 +91,8 @@ questionRouter.patch(
   '/assignee',
   asyncHandler(async (req, res) => {
     try {
+      console.log('req.body', req.body);
+
       const parsedData = await QuestionAssigneeUpdate.safeParseAsync(req.body);
 
       if (!parsedData.success) {

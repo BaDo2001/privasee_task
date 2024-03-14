@@ -15,6 +15,6 @@ export const getQuestions = async (search: QuestionSearch) => axios.get<Question
 
 export const createQuestion = async (question: QuestionInput) => axios.post<unknown>('/api/questions', question);
 
-export const updateQuestion = async (id: string, question: QuestionUpdate) => axios.patch<unknown>(`/api/questions/${id}`, question);
+export const updateQuestion = async (id: string, question: QuestionUpdate) => axios.patch<unknown>(`/api/questions/update/${id}`, question);
 
 export const updateAssignee = async (data: QuestionAssigneeUpdate) => axios.patch<unknown>('/api/questions/assignee', data);

@@ -1,5 +1,5 @@
 import { default as MuiToolbar } from '@mui/material/Toolbar';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import { FC } from 'react';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
@@ -7,16 +7,15 @@ import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
 import { useQuestionContext } from '../../contexts/QuestionContext';
+import AssigneeModal from '../assigneeModal';
 
-interface Props {
-  numSelected: number;
+type Props = {
   assigneeOptions: (string | undefined)[];
   propertiesOptions: string[];
-}
+};
 
-const Toolbar: FC<Props> = ({ numSelected, assigneeOptions, propertiesOptions }) => {
+const Toolbar: FC<Props> = ({ assigneeOptions, propertiesOptions }) => {
   const { search, setSearch, assignee, setAssignee, properties, setProperties } = useQuestionContext();
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -77,11 +76,7 @@ const Toolbar: FC<Props> = ({ numSelected, assigneeOptions, propertiesOptions })
         </FormControl>
       )}
 
-      {numSelected > 0 && (
-        <Button color="primary" variant="contained">
-          Assign {numSelected} question{numSelected > 1 ? 's' : ''}
-        </Button>
-      )}
+      <AssigneeModal />
     </MuiToolbar>
   );
 };

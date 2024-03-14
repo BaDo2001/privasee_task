@@ -25,7 +25,7 @@ const Dashboard = () => {
         {!isLoading && !data && <div>No data</div>}
       </Box>
 
-      {data && <QuestionTable questions={data.data} />}
+      {data && <QuestionTable />}
     </Box>
   );
 };
