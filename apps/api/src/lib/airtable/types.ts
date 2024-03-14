@@ -24,8 +24,9 @@ export const Question = QuestionInput.extend({
 export type Question = z.infer<typeof Question>;
 
 export const QuestionUpdate = z.object({
-  Answer: z.string().optional(),
-  Properties: z.string().optional(),
+  'Answer': z.string().optional(),
+  'Properties': z.string().optional(),
+  'Assigned To': z.string().email().optional(),
 });
 
 export type QuestionUpdate = z.infer<typeof QuestionUpdate>;

@@ -58,14 +58,16 @@ const QuestionTable: FC<Props> = ({ questions }) => {
   const visibleRows = useMemo(() => questions.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage), [, page, rowsPerPage]);
 
   const assigneeOptions = useMemo(() => {
-    const assignees = questions.map((question) => question['Assigned To']);
+    const assignees = questions.flatMap((question) => question['Assigned To'] || []);
     return Array.from(new Set(assignees));
   }, [questions]);
 
   const propertiesOptions = useMemo(() => {
-    const properties = questions.map((question) => question.Properties.split(',')).flat();
+    const properties = questions.flatMap((question) => (question.Properties ? question.Properties.split(',') : [])).flat();
     return Array.from(new Set(properties));
   }, [questions]);
+
+  console.log('questions', questions, propertiesOptions);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -101,6 +103,7 @@ const QuestionTable: FC<Props> = ({ questions }) => {
                     </TableCell>
                     <TableCell>{row.Question}</TableCell>
                     <TableCell>{row['Assigned To']}</TableCell>
+                    <TableCell align="center">{row['Answer'] ? '✅' : '❌'}</TableCell>
                     <TableCell align="right" onClick={(e) => e.stopPropagation()}>
                       <IconButton component={Link} to={`/edit/${row.id}`}>
                         <ChevronRightIcon />

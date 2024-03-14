@@ -17,6 +17,7 @@ export const searchQuestions = async (query: QuestionSearch = {}): Promise<Quest
   const results = await table
     .select({
       filterByFormula: createFilterFormula(query),
+      sort: [{ field: '_recordId', direction: 'desc' }],
     })
     .all();
 

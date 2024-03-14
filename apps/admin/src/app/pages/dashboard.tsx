@@ -6,9 +6,12 @@ import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useQuestionContext } from '../contexts/QuestionContext';
 
 const Dashboard = () => {
-  const { isLoading, data, error } = useQuery({ queryKey: ['questions'], queryFn: () => getQuestions({}) });
+  const {
+    questions: { isLoading, data, error },
+  } = useQuestionContext();
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>

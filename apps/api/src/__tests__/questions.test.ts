@@ -41,14 +41,16 @@ describe('Questions', () => {
     const question = await createQuestion(mockQuestion);
 
     await updateQuestion(question.id, {
-      Answer: 'New Paris',
-      Properties: 'section:Policies,vendor:IBM,region:Europe',
+      'Answer': 'New Paris',
+      'Properties': 'section:Policies,vendor:IBM,region:Europe',
+      'Assigned To': 'jane.doe@example.com',
     } satisfies QuestionUpdate);
 
     const foundQuestion = await table.find(question.id);
 
     expect(foundQuestion.fields.Answer).toEqual('New Paris');
     expect(foundQuestion.fields.Properties).toEqual('section:Policies,vendor:IBM,region:Europe');
+    expect(foundQuestion.fields['Assigned To']).toEqual('jane.doe@example.com');
   });
 
   test('bulkUpdateQuestions should update multiple questions', async () => {

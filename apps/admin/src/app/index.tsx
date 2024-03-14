@@ -1,11 +1,12 @@
 import { SignIn, SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom';
 import { Box } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import React from 'react';
 import Dashboard from './pages/dashboard';
 import CreateQuestion from './pages/createQuestion';
 import EditQuestion from './pages/editQuestion';
+import { QuestionProvider } from './contexts/QuestionContext';
 
 const router = createBrowserRouter([
   {
@@ -30,12 +31,16 @@ const App = () => (
       </Box>
     </SignedOut>
     <SignedIn>
-      <AppBar sx={{ p: 2, alignItems: 'flex-end' }}>
+      <AppBar sx={{ p: 2, flexDirection: 'row', justifyContent: 'space-between' }}>
+        {/* <Link to="/">Dashboard</Link> */}
+
         <UserButton />
       </AppBar>
 
       <Box sx={{ mt: 8, p: 4 }}>
-        <RouterProvider router={router} />
+        <QuestionProvider>
+          <RouterProvider router={router} />
+        </QuestionProvider>
       </Box>
     </SignedIn>
   </>

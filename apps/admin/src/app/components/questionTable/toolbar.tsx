@@ -60,24 +60,26 @@ const Toolbar: FC<Props> = ({ numSelected, assigneeOptions, propertiesOptions })
         </Select>
       </FormControl>
 
-      <FormControl sx={{ height: 56, flex: 2 }}>
-        <InputLabel id="property-label">Properties</InputLabel>
-        <Select
-          multiple
-          labelId="property-label"
-          value={properties}
-          label="Properties"
-          onChange={handlePropertiesChange}
-          renderValue={(selected) => (selected as string[]).join(', ')}
-        >
-          {propertiesOptions.map((option) => (
-            <MenuItem key={option} value={option}>
-              <Checkbox checked={isPropertySelected(option)} />
-              {option}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      {propertiesOptions.length > 0 && (
+        <FormControl sx={{ height: 56, flex: 2 }}>
+          <InputLabel id="property-label">Properties</InputLabel>
+          <Select
+            multiple
+            labelId="property-label"
+            value={properties}
+            label="Properties"
+            onChange={handlePropertiesChange}
+            renderValue={(selected) => (selected as string[]).join(', ')}
+          >
+            {propertiesOptions.map((option) => (
+              <MenuItem key={option} value={option}>
+                <Checkbox checked={isPropertySelected(option)} />
+                {option}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      )}
 
       {numSelected > 0 && (
         <Button color="primary" variant="contained">
