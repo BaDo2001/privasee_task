@@ -42,13 +42,17 @@ I used fuse.js for fuzzy search, but in an ideal situation this would be done in
 
 Due to the very short time frame, I had to cut some corners, and some features are missing, which I consider to be important. I will list them here, and explain why they are missing.
 
+### Precommit hooks
+
+I usually setup precommit hooks, which run the linter, and the formatter, to make sure that the code is always in a good state. I didn't have time to set it up, and it's not a big deal for a small project like this, but it's a must have for a production app.
+
 ### Deployment
 
-Since the app is not built using a full stack framework, it's not as easy to deploy as it would be with something like Next.JS. Ideally I would have built a CI/CD pipeline which bundles the frontend and then uses the backend to serve it. Services like Heroku, Vercel or Render would have been a good choice.
+Since the app is not built using a full stack framework, it's not as easy to deploy as it would be with something like Next.JS. Ideally I would have built a CI/CD pipeline which bundles the frontend and then uses the backend to serve it. Services like Heroku, Vercel or Render would have been a good choice. It would also be useful to run tests and checks in a separate environment before deploying to production.
 
 ### Testing
 
-I only wrote tests for the Airtable integration, because I felt like it was the most fragile part of the backend, and I didn't have time to setup a frontend testing framework like Cypress. Tests are quintessential for a production app, but it takes an initial investment to set it up, and the ROI is not immediate, so I had to cut it.
+I only wrote tests for the Airtable integration, because I felt like it was the most fragile part of the backend, and I didn't have time to setup a frontend testing framework like Cypress. The biggest obstacle would be figuring out how to login to Clerk automatically. Tests are quintessential for a production app, but it takes an initial investment to set it up, and the ROI is not immediate, so I had to cut it.
 
 ### Error handling
 
