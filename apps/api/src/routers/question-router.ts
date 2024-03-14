@@ -1,7 +1,8 @@
+import { BaseQuestionInput, QuestionAssigneeUpdate, QuestionSearch, QuestionUpdate } from '@privasee_task/types';
 import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
-import { QuestionUpdate, QuestionAssigneeUpdate, QuestionSearch, BaseQuestionInput } from '@repo/types';
-import { createQuestion, bulkUpdateQuestions, updateQuestion, searchQuestions } from '@airtable';
+
+import { bulkUpdateQuestions, createQuestion, searchQuestions, updateQuestion } from '@/airtable';
 
 const questionRouter = Router();
 

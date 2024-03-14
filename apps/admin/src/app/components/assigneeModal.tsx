@@ -1,18 +1,21 @@
+import type { FC } from 'react';
+import React from 'react';
+
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import React, { FC } from 'react';
-import { useBoolean } from 'usehooks-ts';
-import { useQuestionContext } from '@/contexts/QuestionContext';
 import Dialog from '@mui/material/Dialog';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
-import { QuestionAssigneeUpdate } from '@repo/types';
-import { updateAssignee } from '@/api';
-import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
-import DialogActions from '@mui/material/DialogActions';
+import Typography from '@mui/material/Typography';
+import type { QuestionAssigneeUpdate } from '@privasee_task/types';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { AxiosError } from 'axios';
+import { useBoolean } from 'usehooks-ts';
+
+import { updateAssignee } from '@/api';
+import { useQuestionContext } from '@/contexts/QuestionContext';
 
 const AssigneeModal: FC = () => {
   const { value: showModal, setTrue: openModal, setFalse: closeModal } = useBoolean(false);
@@ -47,26 +50,26 @@ const AssigneeModal: FC = () => {
   return (
     <>
       {numSelected > 0 && (
-        <Button color="primary" variant="contained" onClick={openModal}>
+        <Button color="primary" onClick={openModal} variant="contained">
           Assign {numSelected} question{numSelected > 1 ? 's' : ''}
         </Button>
       )}
-      <Dialog open={showModal} onClose={closeModal} PaperProps={{ onSubmit, component: 'form' }}>
+      <Dialog PaperProps={{ onSubmit, component: 'form' }} onClose={closeModal} open={showModal}>
         <DialogTitle>Assign questions</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Assign {numSelected} question{numSelected > 1 ? 's' : ''} to an assignee. Leave blank to unassign.
           </DialogContentText>
 
-          {error && <Typography sx={{ color: '#ef4444' }}>{error.message}</Typography>}
+          {error ? <Typography sx={{ color: '#ef4444' }}>{error.message}</Typography> : null}
 
-          <TextField sx={{ mt: 2 }} autoFocus id="assignee" name="assignee" label="Assignee" type="email" fullWidth variant="standard" />
+          <TextField fullWidth id="assignee" label="Assignee" name="assignee" sx={{ mt: 2 }} type="email" variant="standard" />
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeModal} disabled={isPending}>
+          <Button disabled={isPending} onClick={closeModal}>
             Cancel
           </Button>
-          <Button type="submit" disabled={isPending}>
+          <Button disabled={isPending} type="submit">
             {isPending ? 'Assigning...' : 'Assign'}
           </Button>
         </DialogActions>

@@ -20,7 +20,7 @@ module.exports = {
     node: true,
     es6: true,
   },
-  plugins: ['only-warn'],
+  plugins: ['only-warn', 'simple-import-sort'],
   settings: {
     'import/resolver': {
       typescript: {
@@ -48,5 +48,13 @@ module.exports = {
     'no-console': 'off',
     '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/no-empty-interface': 'off',
+    'simple-import-sort/imports': [
+      'error',
+      {
+        groups: [['^react'], ['^@?\\w'], ['^@/?\\w'], ['^\\.\\.(?!/?$)', '^\\.\\./?$'], ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$']],
+      },
+    ],
+    'simple-import-sort/exports': 'error',
+    'import/order': 'off',
   },
 };

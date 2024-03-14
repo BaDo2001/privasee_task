@@ -1,9 +1,10 @@
-import { json, urlencoded } from 'body-parser';
-import express, { type Express } from 'express';
-import cors from 'cors';
-import pino from 'pino-http';
 import type { LooseAuthProp } from '@clerk/clerk-sdk-node';
 import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node';
+import { json, urlencoded } from 'body-parser';
+import cors from 'cors';
+import express, { type Express } from 'express';
+import pino from 'pino-http';
+
 import { questionRouter } from './routers/question-router';
 
 declare global {

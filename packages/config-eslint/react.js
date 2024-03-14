@@ -21,7 +21,7 @@ module.exports = {
   globals: {
     JSX: true,
   },
-  plugins: ['only-warn'],
+  plugins: ['only-warn', 'simple-import-sort'],
   settings: {
     'import/resolver': {
       typescript: {
@@ -34,9 +34,22 @@ module.exports = {
   rules: {
     'import/no-default-export': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    'react/function-component-definition': {
-      namedComponents: 'arrow-function',
-      unnamedComponents: 'arrow-function',
-    },
+    'react/function-component-definition': [
+      'off',
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
+    'unicorn/filename-case': 'off',
+    '@typescript-eslint/naming-convention': 'off',
+    'simple-import-sort/imports': [
+      'error',
+      {
+        groups: [['^react'], ['^@?\\w'], ['^@/?\\w'], ['^\\.\\.(?!/?$)', '^\\.\\./?$'], ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$']],
+      },
+    ],
+    'simple-import-sort/exports': 'error',
+    'import/order': 'off',
   },
 };

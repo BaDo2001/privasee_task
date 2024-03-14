@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/base.json",
+  "extends": "@privasee_task/typescript-config/base.json",
   "compilerOptions": {
     "lib": ["ES2015"],
     "module": "ES2015",
@@ -8,8 +8,8 @@
     "declarationMap": false,
     "baseUrl": ".",
     "paths": {
-      "@airtable": ["src/lib/airtable/index.ts"],
-      "@airtable/*": ["src/lib/airtable/*"]
+      "@/airtable": ["src/lib/airtable/index.ts"],
+      "@/airtable/*": ["src/lib/airtable/*"]
     }
   },
   "exclude": ["node_modules"],

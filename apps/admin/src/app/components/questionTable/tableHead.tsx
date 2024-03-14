@@ -1,13 +1,16 @@
-import TableCell, { TableCellProps } from '@mui/material/TableCell';
+import type { FC } from 'react';
+import React from 'react';
+
+import type { TableCellProps } from '@mui/material/TableCell';
+import TableCell from '@mui/material/TableCell';
 import { default as MuiTableHead } from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import React, { FC } from 'react';
 
-type HeadCell = {
+interface HeadCell {
   id: string;
   label: string;
   align?: TableCellProps['align'];
-};
+}
 
 const headCells: readonly HeadCell[] = [
   {
@@ -31,7 +34,7 @@ const TableHead: FC = () => (
       <TableCell width={64} />
 
       {headCells.map((headCell) => (
-        <TableCell key={headCell.id} sx={{ fontWeight: 'bold' }} align={headCell.align}>
+        <TableCell align={headCell.align} key={headCell.id} sx={{ fontWeight: 'bold' }}>
           {headCell.label}
         </TableCell>
       ))}

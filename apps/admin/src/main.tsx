@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
+
 import { ClerkProvider } from '@clerk/clerk-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import App from './app';
+
 import './index.css';
 
 const el = document.getElementById('root');

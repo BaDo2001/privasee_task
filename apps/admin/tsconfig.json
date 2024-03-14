@@ -1,6 +1,6 @@
 {
   "exclude": ["node_modules"],
-  "extends": "@repo/typescript-config/vite.json",
+  "extends": "@privasee_task/typescript-config/vite.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",

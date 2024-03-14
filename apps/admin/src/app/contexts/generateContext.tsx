@@ -1,4 +1,5 @@
-import React, { createContext, FC, PropsWithChildren, useContext } from 'react';
+import type { FC, PropsWithChildren} from 'react';
+import React, { createContext, useContext } from 'react';
 
 const generateContext = <T,>(useContextValue: () => T): [() => T, FC<PropsWithChildren>] => {
   const context = createContext<T | null>(null);

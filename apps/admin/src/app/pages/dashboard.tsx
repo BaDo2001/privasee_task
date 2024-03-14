@@ -1,10 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import QuestionTable from '@/components/questionTable';
-import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
+
+import QuestionTable from '@/components/questionTable';
 import { useQuestionContext } from '@/contexts/QuestionContext';
 
 const Dashboard = () => {
@@ -14,17 +15,17 @@ const Dashboard = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <Button variant="contained" color="primary" sx={{ alignSelf: 'flex-end' }} component={Link} to="/create">
+      <Button color="primary" component={Link} sx={{ alignSelf: 'flex-end' }} to="/create" variant="contained">
         Create new question
       </Button>
 
       <Box sx={{ alignSelf: 'center' }}>
-        {isLoading && <CircularProgress />}
-        {error && <div>Error: {error.stack}</div>}
+        {isLoading ? <CircularProgress /> : null}
+        {error ? <div>Error: {error.stack}</div> : null}
         {!isLoading && !data && <div>No data</div>}
       </Box>
 
-      {data && <QuestionTable />}
+      {data ? <QuestionTable /> : null}
     </Box>
   );
 };

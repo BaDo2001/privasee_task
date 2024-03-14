@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
-import generateContext from './generateContext';
+
 import { useQuery } from '@tanstack/react-query';
-import { getQuestions } from '@/api';
 import { useDebounceValue } from 'usehooks-ts';
+
+import { getQuestions } from '@/api';
+
+import generateContext from './generateContext';
 
 const useQuestionContextValue = () => {
   const [selected, setSelected] = useState<string[]>([]);
@@ -21,7 +24,7 @@ const useQuestionContextValue = () => {
     queryFn: () =>
       getQuestions({
         'Assigned To': assignee || undefined,
-        'Properties': properties ? properties.join(',') : undefined,
+        'Properties': properties.length ? properties.join(',') : undefined,
         'query': debouncedValue,
       }),
   });

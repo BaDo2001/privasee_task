@@ -1,5 +1,6 @@
-import type { Question } from '@repo/types';
-import table from '@airtable/table';
+import type { Question } from '@privasee_task/types';
+
+import table from '@/airtable/table';
 
 export const updateQuestion = async (id: string, question: Partial<Question>) => {
   const record = await table.update(id, question, {

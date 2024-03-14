@@ -1,5 +1,5 @@
+import type { BaseQuestionInput, Question, QuestionAssigneeUpdate, QuestionSearch, QuestionUpdate } from '@privasee_task/types';
 import axios from 'axios';
-import type { Question, QuestionAssigneeUpdate, BaseQuestionInput, QuestionSearch, QuestionUpdate } from '@repo/types';
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 

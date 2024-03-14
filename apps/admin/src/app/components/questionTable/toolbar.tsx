@@ -1,19 +1,22 @@
-import { default as MuiToolbar } from '@mui/material/Toolbar';
-import React, { ChangeEvent } from 'react';
-import { FC } from 'react';
-import TextField from '@mui/material/TextField';
+import type { ChangeEvent, FC } from 'react';
+import React from 'react';
+
+import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import Checkbox from '@mui/material/Checkbox';
-import { useQuestionContext } from '@/contexts/QuestionContext';
-import AssigneeModal from '@/components/assigneeModal';
+import type { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import { default as MuiToolbar } from '@mui/material/Toolbar';
 
-type Props = {
+import AssigneeModal from '@/components/assigneeModal';
+import { useQuestionContext } from '@/contexts/QuestionContext';
+
+interface Props {
   assigneeOptions: (string | undefined)[];
   propertiesOptions: string[];
-};
+}
 
 const Toolbar: FC<Props> = ({ assigneeOptions, propertiesOptions }) => {
   const { search, setSearch, assignee, setAssignee, properties, setProperties } = useQuestionContext();
@@ -30,7 +33,7 @@ const Toolbar: FC<Props> = ({ assigneeOptions, propertiesOptions }) => {
     setProperties(event.target.value as string[]);
   };
 
-  const isPropertySelected = (property: string) => properties.indexOf(property) !== -1;
+  const isPropertySelected = (property: string) => properties.includes(property);
 
   return (
     <MuiToolbar
@@ -40,11 +43,11 @@ const Toolbar: FC<Props> = ({ assigneeOptions, propertiesOptions }) => {
         gap: 4,
       }}
     >
-      <TextField label="Search" variant="outlined" sx={{ flex: 2 }} value={search} onChange={handleSearchChange} />
+      <TextField label="Search" onChange={handleSearchChange} sx={{ flex: 2 }} value={search} variant="outlined" />
 
       <FormControl sx={{ flex: 1 }}>
         <InputLabel id="assignee-label">Assignee</InputLabel>
-        <Select labelId="assignee-label" value={assignee} label="Assignee" onChange={handleAssigneeChange}>
+        <Select label="Assignee" labelId="assignee-label" onChange={handleAssigneeChange} value={assignee}>
           <MenuItem value="">None</MenuItem>
 
           {assigneeOptions.map((option) => (
@@ -59,12 +62,12 @@ const Toolbar: FC<Props> = ({ assigneeOptions, propertiesOptions }) => {
         <FormControl sx={{ height: 56, flex: 2 }}>
           <InputLabel id="property-label">Properties</InputLabel>
           <Select
-            multiple
-            labelId="property-label"
-            value={properties}
             label="Properties"
+            labelId="property-label"
+            multiple
             onChange={handlePropertiesChange}
-            renderValue={(selected) => (selected as string[]).join(', ')}
+            renderValue={(selected) => selected.join(', ')}
+            value={properties}
           >
             {propertiesOptions.map((option) => (
               <MenuItem key={option} value={option}>

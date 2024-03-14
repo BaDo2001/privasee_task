@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { createQuestion } from '@/api';
-import QuestionForm, { QuestionFormType } from '@/components/questionForm';
+import type { QuestionFormType } from '@/components/questionForm';
+import QuestionForm from '@/components/questionForm';
 
 const CreateQuestion = () => {
   const action = async (data: QuestionFormType) => {
@@ -12,7 +14,7 @@ const CreateQuestion = () => {
     });
   };
 
-  return <QuestionForm type="create" defaultValues={{}} action={action} />;
+  return <QuestionForm action={action} defaultValues={{}} type="create" />;
 };
 
 export default CreateQuestion;

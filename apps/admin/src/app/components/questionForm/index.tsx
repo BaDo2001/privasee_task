@@ -1,21 +1,23 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Question } from '@repo/types';
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import type { Question } from '@privasee_task/types';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { AxiosError } from 'axios';
 
 export type QuestionFormType = Pick<Question, 'Question' | 'Assigned To' | 'Properties' | 'Answer' | 'Question Description'>;
 
-type Props = {
+interface Props {
   type: 'create' | 'update';
   defaultValues: Partial<QuestionFormType>;
   action: (data: QuestionFormType) => Promise<void>;
-};
+}
 
 const QuestionForm: FC<Props> = ({ type, defaultValues, action }) => {
   const {
@@ -47,18 +49,18 @@ const QuestionForm: FC<Props> = ({ type, defaultValues, action }) => {
   });
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={() => void onSubmit()}>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, px: 20 }}>
-        <Typography variant="h1" sx={{ fontSize: 32, mb: 2 }}>
+        <Typography sx={{ fontSize: 32, mb: 2 }} variant="h1">
           {type === 'create' ? 'Create a question' : 'Edit question'}
         </Typography>
 
-        {error && <Typography sx={{ color: '#ef4444' }}>{error.message}</Typography>}
+        {error ? <Typography sx={{ color: '#ef4444' }}>{error.message}</Typography> : null}
 
         <Box>
           <TextField
-            sx={{ width: '100%' }}
             label="Question (required)"
+            sx={{ width: '100%' }}
             variant="outlined"
             {...register('Question', { required: 'Question is required' })}
             disabled={type === 'update'}
@@ -71,7 +73,7 @@ const QuestionForm: FC<Props> = ({ type, defaultValues, action }) => {
         <TextField label="Description" variant="outlined" {...register('Question Description')} disabled={type === 'update'} />
         <TextField label="Properties" variant="outlined" {...register('Properties')} />
 
-        <Button type="submit" variant="contained" disabled={isPending}>
+        <Button disabled={isPending} type="submit" variant="contained">
           {type === 'create' ? <>{isPending ? 'Creating...' : 'Create'}</> : <>{isPending ? 'Updating...' : 'Update'}</>}
         </Button>
       </Box>

@@ -1,5 +1,5 @@
 {
-  "name": "@repo/types",
+  "name": "@privasee_task/types",
   "version": "0.0.1",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -8,7 +8,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@privasee_task/typescript-config": "workspace:*",
     "typescript": "^5.3.3"
   }
 }

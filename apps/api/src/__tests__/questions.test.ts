@@ -1,6 +1,7 @@
-import type { QuestionInput, QuestionUpdate, QuestionAssigneeUpdate } from '@repo/types';
-import { createQuestion, bulkUpdateQuestions, updateQuestion, searchQuestions } from '@airtable';
-import table from '@airtable/table';
+import type { QuestionInput, QuestionUpdate } from '@privasee_task/types';
+
+import { bulkUpdateQuestions, createQuestion, searchQuestions,updateQuestion } from '@/airtable';
+import table from '@/airtable/table';
 
 const mockQuestion = {
   'Assigned To': 'john.doe@example.com',
@@ -57,16 +58,9 @@ describe('Questions', () => {
     const question1 = await createQuestion(mockQuestion);
     const question2 = await createQuestion(mockQuestion);
 
-    await bulkUpdateQuestions([
-      {
-        'id': question1.id,
-        'Assigned To': 'jane.doe@example.com',
-      },
-      {
-        'id': question2.id,
-        'Assigned To': 'james.doe@example.com',
-      },
-    ] satisfies QuestionAssigneeUpdate);
+    await bulkUpdateQuestions([question1.id, question2.id], {
+      'Assigned To': 'jane.doe@example.com',
+    });
 
     const foundQuestion1 = await table.find(question1.id);
     const foundQuestion2 = await table.find(question2.id);
