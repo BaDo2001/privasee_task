@@ -7,8 +7,8 @@ import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
-import { useQuestionContext } from '../../contexts/QuestionContext';
-import AssigneeModal from '../assigneeModal';
+import { useQuestionContext } from '@/contexts/QuestionContext';
+import AssigneeModal from '@/components/assigneeModal';
 
 type Props = {
   assigneeOptions: (string | undefined)[];

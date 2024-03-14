@@ -1,14 +1,13 @@
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import React, { FC } from 'react';
 import { useBoolean } from 'usehooks-ts';
-import { useQuestionContext } from '../contexts/QuestionContext';
+import { useQuestionContext } from '@/contexts/QuestionContext';
 import Dialog from '@mui/material/Dialog';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { QuestionAssigneeUpdate } from '../../lib/types';
-import { updateAssignee } from '../../lib/api';
+import { QuestionAssigneeUpdate } from '@repo/types';
+import { updateAssignee } from '@/api';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
@@ -39,7 +38,10 @@ const AssigneeModal: FC = () => {
 
     const assignee = new FormData(event.currentTarget).get('assignee') as string;
 
-    await mutateAsync(selected.map((id) => ({ id, 'Assigned To': assignee || undefined })));
+    await mutateAsync({
+      'ids': selected,
+      'Assigned To': assignee,
+    });
   };
 
   return (

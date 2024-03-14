@@ -1,17 +1,22 @@
 import * as z from 'zod';
 
-export const QuestionInput = z.object({
+export const BaseQuestionInput = z.object({
   'Company Name': z.string(),
   '_companyId': z.number(),
   'Question': z.string(),
   'Answer': z.string().default(''),
+  'Assigned To': z.string().email().optional(),
+  'Properties': z.string().default(''),
+  'Question Description': z.string().default(''),
+});
+
+export type BaseQuestionInput = z.infer<typeof BaseQuestionInput>;
+
+export const QuestionInput = BaseQuestionInput.extend({
   'Created At': z.string().datetime(),
   'Created By': z.string().email(),
   'Updated At': z.string().datetime(),
   'Updated By': z.string().email(),
-  'Assigned To': z.string().email().optional(),
-  'Properties': z.string().default(''),
-  'Question Description': z.string().default(''),
 });
 
 export type QuestionInput = z.infer<typeof QuestionInput>;
@@ -31,16 +36,14 @@ export const QuestionUpdate = z.object({
 
 export type QuestionUpdate = z.infer<typeof QuestionUpdate>;
 
-export const QuestionAssigneeUpdate = z.array(
-  z.object({
-    'id': z.string(),
-    'Assigned To': z
-      .string()
-      .email()
-      .optional()
-      .transform((v) => v || ''),
-  }),
-);
+export const QuestionAssigneeUpdate = z.object({
+  'ids': z.array(z.string()),
+  'Assigned To': z
+    .string()
+    .email()
+    .transform((v) => v || '')
+    .optional(),
+});
 
 export type QuestionAssigneeUpdate = z.infer<typeof QuestionAssigneeUpdate>;
 

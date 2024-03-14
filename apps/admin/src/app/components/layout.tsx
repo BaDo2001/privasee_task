@@ -5,7 +5,7 @@ import { Link, Outlet } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import { UserButton } from '@clerk/clerk-react';
 import Box from '@mui/material/Box';
-import { QuestionProvider } from '../contexts/QuestionContext';
+import { QuestionProvider } from '@/contexts/QuestionContext';
 
 const Layout = () => (
   <>

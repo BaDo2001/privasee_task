@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
+import { QuestionUpdate, QuestionAssigneeUpdate, QuestionSearch, BaseQuestionInput } from '@repo/types';
 import { createQuestion, bulkUpdateQuestions, updateQuestion, searchQuestions } from '@airtable';
-import { QuestionUpdate, QuestionAssigneeUpdate, QuestionInput, QuestionSearch } from '@airtable/types';
 
 const questionRouter = Router();
 
@@ -33,7 +33,7 @@ questionRouter.post(
   '/',
   asyncHandler(async (req, res) => {
     try {
-      const parsedData = await QuestionInput.safeParseAsync(req.body);
+      const parsedData = await BaseQuestionInput.safeParseAsync(req.body);
 
       if (!parsedData.success) {
         req.log.error(parsedData.error);
@@ -42,9 +42,20 @@ questionRouter.post(
         return;
       }
 
-      // TODO: Get the user from the request and set Created By and Updated By fields accordingly, also set Created At and Updated At fields
+      const user = req.auth.claims?.email;
 
-      const data = await createQuestion(parsedData.data);
+      if (!user) {
+        res.status(401).json({ message: 'Unauthorized' });
+        return;
+      }
+
+      const data = await createQuestion({
+        ...parsedData.data,
+        'Created By': user,
+        'Updated By': user,
+        'Created At': new Date().toISOString(),
+        'Updated At': new Date().toISOString(),
+      });
 
       req.log.info({ id: data.id }, 'Question created');
 
@@ -72,9 +83,18 @@ questionRouter.patch(
         return;
       }
 
-      // TODO: Get the user from the request and set Updated By fields accordingly, also set Updated At fields
+      const user = req.auth.claims?.email;
 
-      await updateQuestion(id, parsedData.data);
+      if (!user) {
+        res.status(401).json({ message: 'Unauthorized' });
+        return;
+      }
+
+      await updateQuestion(id, {
+        ...parsedData.data,
+        'Updated By': user,
+        'Updated At': new Date().toISOString(),
+      });
 
       req.log.info({ id }, 'Question answer updated');
 
@@ -102,9 +122,18 @@ questionRouter.patch(
         return;
       }
 
-      // TODO: Get the user from the request and set Updated By fields accordingly, also set Updated At fields
+      const user = req.auth.claims?.email;
 
-      await bulkUpdateQuestions(parsedData.data);
+      if (!user) {
+        res.status(401).json({ message: 'Unauthorized' });
+        return;
+      }
+
+      await bulkUpdateQuestions(parsedData.data.ids, {
+        'Assigned To': parsedData.data['Assigned To'],
+        'Updated By': user,
+        'Updated At': new Date().toISOString(),
+      });
 
       req.log.info('Question assignee updated');
 

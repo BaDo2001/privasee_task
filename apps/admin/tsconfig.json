@@ -3,7 +3,13 @@
   "extends": "@repo/typescript-config/vite.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@/api": ["./src/lib/api.ts"],
+      "@/components/*": ["./src/app/components/*"],
+      "@/contexts/*": ["./src/app/contexts/*"]
+    }
   },
   "include": ["src"]
 }

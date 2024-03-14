@@ -14,7 +14,7 @@ import Checkbox from '@mui/material/Checkbox';
 import TablePagination from '@mui/material/TablePagination';
 import IconButton from '@mui/material/IconButton';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { useQuestionContext } from '../../contexts/QuestionContext';
+import { useQuestionContext } from '@/contexts/QuestionContext';
 
 const QuestionTable: FC = () => {
   const { selected, questions, updateSelected } = useQuestionContext();

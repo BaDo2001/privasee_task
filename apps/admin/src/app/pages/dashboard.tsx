@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { getQuestions } from '../../lib/api';
-import QuestionTable from '../components/questionTable';
+import QuestionTable from '@/components/questionTable';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useQuestionContext } from '../contexts/QuestionContext';
+import { useQuestionContext } from '@/contexts/QuestionContext';
 
 const Dashboard = () => {
   const {

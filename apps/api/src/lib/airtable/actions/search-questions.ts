@@ -1,7 +1,7 @@
 import Fuse from 'fuse.js';
+import type { Question, QuestionSearch } from '@repo/types';
+import { QuestionSearchResult } from '@repo/types';
 import table from '@airtable/table';
-import type { Question, QuestionSearch } from '@airtable/types';
-import { QuestionSearchResult } from '@airtable/types';
 
 const createFilterFormula = (query: QuestionSearch) => {
   const proprtiesFilter = query.Properties

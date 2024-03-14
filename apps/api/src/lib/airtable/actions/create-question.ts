@@ -1,6 +1,6 @@
+import type { QuestionInput } from '@repo/types';
+import { Question } from '@repo/types';
 import table from '@airtable/table';
-import type { QuestionInput } from '@airtable/types';
-import { Question } from '@airtable/types';
 
 export const createQuestion = async (question: QuestionInput): Promise<Question> => {
   const record = await table.create(question, {

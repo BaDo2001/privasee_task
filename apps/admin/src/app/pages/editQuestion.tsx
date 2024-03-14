@@ -1,9 +1,9 @@
 import Typography from '@mui/material/Typography';
 import React, { FC } from 'react';
-import { updateQuestion } from '../../lib/api';
+import { updateQuestion } from '@/api';
 import { useParams } from 'react-router-dom';
-import { useQuestionContext } from '../contexts/QuestionContext';
-import QuestionForm, { QuestionFormType } from '../components/questionForm';
+import { useQuestionContext } from '@/contexts/QuestionContext';
+import QuestionForm, { QuestionFormType } from '@/components/questionForm';
 
 const EditQuestion: FC = () => {
   const { getQuestion } = useQuestionContext();

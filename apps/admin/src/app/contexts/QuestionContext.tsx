@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import generateContext from './generateContext';
 import { useQuery } from '@tanstack/react-query';
-import { getQuestions } from '../../lib/api';
+import { getQuestions } from '@/api';
 import { useDebounceValue } from 'usehooks-ts';
 
 const useQuestionContextValue = () => {

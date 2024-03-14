@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Question } from '../../../lib/types';
+import { Question } from '@repo/types';
 
 export type QuestionFormType = Pick<Question, 'Question' | 'Assigned To' | 'Properties' | 'Answer' | 'Question Description'>;
 
