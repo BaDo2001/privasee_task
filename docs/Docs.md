@@ -40,7 +40,11 @@ I used fuse.js for fuzzy search, but in an ideal situation this would be done in
 
 ## Missing features
 
-Due to the very short time frame, I had to cut some corners, and some features are missing, which I consider to be important. I will list them here, and explain why they are missing.
+Due to the very short time frame, I had to cut some corners, and some features are missing, which I consider to be important.
+
+### Improved question properties
+
+I didn't have time to implement the question properties as key value pairs, so it's just a string, which is not validated properly.
 
 ### Precommit hooks
 
