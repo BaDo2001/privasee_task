@@ -2,7 +2,7 @@ import { BaseQuestionInput, QuestionAssigneeUpdate, QuestionSearch, QuestionUpda
 import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
 
-import { bulkUpdateQuestions, createQuestion, searchQuestions, updateQuestion } from '@/airtable';
+import { bulkUpdateQuestions, createQuestion, deleteQuestion, searchQuestions, updateQuestion } from '@/airtable';
 
 const questionRouter = Router();
 
@@ -145,6 +145,25 @@ questionRouter.patch(
       res.status(500).json({ message: 'Internal Server Error' });
     }
   }),
+
+  questionRouter.delete(
+    '/:id',
+    asyncHandler(async (req, res) => {
+      try {
+        const { id } = req.params;
+
+        await deleteQuestion(id);
+
+        req.log.info({ id }, 'Question deleted');
+
+        res.status(200).json({ message: 'Question deleted' });
+      } catch (error) {
+        req.log.error(error);
+
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
+    }),
+  ),
 );
 
 export { questionRouter };

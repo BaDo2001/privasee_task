@@ -1,6 +1,6 @@
 import type { QuestionInput, QuestionUpdate } from '@privasee_task/types';
 
-import { bulkUpdateQuestions, createQuestion, searchQuestions, updateQuestion } from '@/airtable';
+import { bulkUpdateQuestions, createQuestion, deleteQuestion, searchQuestions, updateQuestion } from '@/airtable';
 import table from '@/airtable/table';
 
 const mockQuestion = {
@@ -118,5 +118,15 @@ describe('Questions', () => {
     const questions = await searchQuestions({ query: 'veggie' });
 
     expect(questions).toEqual([question2, question3]);
+  });
+
+  test('deleteQuestion should remove the specified question', async () => {
+    const question = await createQuestion(mockQuestion);
+
+    await deleteQuestion(question.id);
+
+    const questionsFound = await table.select({ fields: [] }).all();
+
+    expect(questionsFound).toHaveLength(0);
   });
 });

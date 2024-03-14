@@ -19,3 +19,5 @@ export const createQuestion = async (question: BaseQuestionInput) => axios.post<
 export const updateQuestion = async (id: string, question: QuestionUpdate) => axios.patch<unknown>(`/api/questions/update/${id}`, question);
 
 export const updateAssignee = async (data: QuestionAssigneeUpdate) => axios.patch<unknown>('/api/questions/assignee', data);
+
+export const deleteQuestion = async (id: string) => axios.delete<unknown>(`/api/questions/${id}`);

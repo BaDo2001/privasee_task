@@ -17,9 +17,11 @@ interface Props {
   type: 'create' | 'update';
   defaultValues: Partial<QuestionFormType>;
   action: (data: QuestionFormType) => Promise<void>;
+  onDelete?: () => void;
+  deletePending?: boolean;
 }
 
-const QuestionForm: FC<PropsWithChildren<Props>> = ({ type, defaultValues, action, children }) => {
+const QuestionForm: FC<PropsWithChildren<Props>> = ({ type, defaultValues, action, onDelete, deletePending, children }) => {
   const {
     register,
     handleSubmit,
@@ -75,9 +77,20 @@ const QuestionForm: FC<PropsWithChildren<Props>> = ({ type, defaultValues, actio
         <TextField label="Description" variant="outlined" {...register('Question Description')} disabled={type === 'update'} />
         <TextField label="Properties" variant="outlined" {...register('Properties')} />
 
-        <Button disabled={isPending} type="submit" variant="contained">
+        <Button disabled={isPending || deletePending} sx={{ width: 240, alignSelf: 'center' }} type="submit" variant="contained">
           {type === 'create' ? <>{isPending ? 'Creating...' : 'Create'}</> : <>{isPending ? 'Updating...' : 'Update'}</>}
         </Button>
+
+        {type === 'update' && onDelete ? (
+          <Button
+            disabled={isPending || deletePending}
+            onClick={onDelete}
+            sx={{ bgcolor: '#ef4444', width: 240, alignSelf: 'center' }}
+            variant="contained"
+          >
+            {deletePending ? 'Deleting...' : 'Delete'}
+          </Button>
+        ) : null}
       </Box>
     </form>
   );
